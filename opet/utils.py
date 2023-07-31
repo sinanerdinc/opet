@@ -1,15 +1,6 @@
-from datetime import datetime, timezone, timedelta
 import requests
 from opet.exceptions import Http200Error
 import json
-
-
-def yesterday():
-    now_datetime = datetime.now(timezone.utc)
-    six_hours_delta = timedelta(days=1)
-    target_datetime = now_datetime - six_hours_delta
-    output_datetime_str = target_datetime.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-    return output_datetime_str
 
 
 def http_get(url):
@@ -29,6 +20,3 @@ def http_get(url):
 def to_json(data):
     return json.dumps(data, ensure_ascii=False, indent=2)
 
-
-if __name__ == '__main__':
-    print(yesterday())

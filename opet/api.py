@@ -1,19 +1,18 @@
-from opet.utils import yesterday, http_get, to_json
+from opet.utils import http_get, to_json
 from opet.exceptions import ProvinceNotFoundError
 
 class OpetApiClient:
     def __init__(self):
         self.url = "https://api.opet.com.tr/api/fuelprices"
 
+    def get_last_update(self):
+        return http_get(f"{self.url}/lastupdate")
+
     def get_provinces(self):
         return http_get(f"{self.url}/provinces")
 
-    def get_districts(self, province_id):
-        return http_get(f"{self.url}/provinces/{province_id}/districts")
-
-    def get_price(self, district_id: str):
-        date = yesterday()
-        url = f"{self.url}/prices/archive?DistrictCode={district_id}&StartDate={date}&EndDate={date}&IncludeAllProducts=true"
+    def get_price(self, province_id: str):
+        url = f"{self.url}/prices?ProvinceCode={province_id}&IncludeAllProducts=true"
         r = http_get(url)
         response = list(map(lambda x: dict(name=x["productName"], amount=x["amount"]), r[0]["prices"]))
         return response
@@ -28,7 +27,8 @@ class OpetApiClient:
         result = dict(
             results=dict(
                 province=province_name,
-                prices=self.get_price(self.get_districts(province_id)[0]["code"])
+                lastUpdate=self.get_last_update()["lastUpdateDate"],
+                prices=self.get_price(province_id)
             )
         )
         return to_json(result)
@@ -36,4 +36,6 @@ class OpetApiClient:
 
 if __name__ == '__main__':
     client = OpetApiClient()
+    print(client.get_provinces())
+    print(client.get_price("28"))
     print(client.price("28"))
