@@ -30,3 +30,15 @@ Terminal üzerinden plaka kodu parametresi geçerek yakıt fiyatlarını json fo
 ```
 opet-cli --il 34
 ```
+
+## Docker
+Uygulamayı docker üzerinden kullanabilirsiniz. İsterseniz Dockerfile üzerinden şu komut ile kendiniz bir build alabilirsiniz.
+```
+docker build -t opet .
+```
+
+isterseniz de [dockerhub üzerindeki imajı](https://hub.docker.com/r/sinanerdinc/opet) kullanabilirsiniz.
+
+```
+docker pull sinanerdinc/opet
+```
