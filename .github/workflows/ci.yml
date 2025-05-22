@@ -1,0 +1,57 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read # Allow read access to the repository content
+
+jobs:
+  test_and_lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Allow other matrix jobs to continue if one fails
+      matrix:
+        python-version: ['3.8', '3.9', '3.10'] # Using strings as per setup-python examples
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4 # Updated to v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4 # Updated to v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+        # Install package dependencies from requirements.txt (if any)
+        # and the package itself in editable mode to make its modules available
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install . # Installs the package from setup.py
+        # Install development dependencies (pytest, pytest-mock)
+        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+      
+    - name: Lint with Flake8
+      run: |
+        echo "Running Flake8..."
+        # Using a common flake8 command, adjust flags as needed.
+        # The example flags: --select=E9,F63,F7,F82 are for specific error types.
+        # A general lint might be:
+        flake8 opet/ tests/ --count --show-source --statistics
+        # Add --exit-zero if you want warnings instead of build failure for style issues initially.
+        # For stricter CI, remove --exit-zero or use specific --select/--ignore.
+
+    - name: Test with pytest
+      run: |
+        echo "Running pytest..."
+        pytest tests/
+        # The example used `pytest` which runs all tests discovered.
+        # Specifying `tests/` is more explicit.
+        # Add options like -v for verbosity if needed.
+        # pytest # This would also work if tests are in standard locations.

@@ -1,3 +1,5 @@
+[![Python CI Workflow Status](https://github.com/sinanerdinc/opet/actions/workflows/ci.yml/badge.svg)](https://github.com/sinanerdinc/opet/actions/workflows/ci.yml)
+
 ## Opet
 Güncel yakıt fiyatlarını https://www.opet.com.tr/ üzerinden almanıza sağlar.
 
@@ -30,6 +32,9 @@ Terminal üzerinden plaka kodu parametresi geçerek yakıt fiyatlarını json fo
 ```
 opet-cli --il 34
 ```
+
+## Testing
+Bu proje, kod kalitesini ve güvenilirliğini sağlamak amacıyla `pytest` kullanılarak yazılmış birim testleri içermektedir. Testler, kodda yapılan her değişiklikte ve `main` branch'ine yapılan pull request'lerde GitHub Actions aracılığıyla otomatik olarak çalıştırılır. Bu sayede projenin istikrarlı bir şekilde geliştirilmesi hedeflenmektedir.
 
 ## Docker
 Uygulamayı docker üzerinden kullanabilirsiniz. İsterseniz Dockerfile üzerinden şu komut ile kendiniz bir build alabilirsiniz.
