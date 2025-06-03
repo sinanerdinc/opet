@@ -7,13 +7,15 @@ data to JSON format, supporting the core operations of the Opet API client.
 import requests
 from opet.exceptions import Http200Error
 import json
-from typing import Any, Dict, List, Union # Added Union for to_json
+from typing import Any, Dict, List, Union  # Added Union for to_json
+
 
 def http_get(url: str) -> Any:
     """Makes a GET request to the specified URL and returns the JSON response.
 
     This function encapsulates the common settings for HTTP GET requests to the
-    Opet API, including standard headers and error handling for non-200 responses.
+    Opet API, including standard headers and error handling for non-200
+    responses.
 
     Args:
         url: The URL to send the GET request to.
@@ -28,7 +30,11 @@ def http_get(url: str) -> Any:
                                               issues during the request.
     """
     headers: Dict[str, str] = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+        'User-Agent': (
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
+            'AppleWebKit/537.36 (KHTML, like Gecko) '
+            'Chrome/114.0.0.0 Safari/537.36'
+        ),
         'Origin': 'https://www.opet.com.tr',
         'Host': 'api.opet.com.tr',
         'Channel': 'Web',
@@ -36,7 +42,10 @@ def http_get(url: str) -> Any:
     }
     r: requests.Response = requests.get(url, headers=headers, verify=True)
     if r.status_code != 200:
-        raise Http200Error(f"Request to '{url}' failed with status code {r.status_code}. Response: {r.text}")
+        raise Http200Error(
+            f"Request to '{url}' failed with status code {r.status_code}. "
+            f"Response: {r.text}"
+        )
     return r.json()
 
 

@@ -5,6 +5,7 @@ and related utility functions. This allows for more granular error handling
 compared to using generic exceptions.
 """
 
+
 class BaseError(Exception):
     """Base class for all custom exceptions in this application.
 
