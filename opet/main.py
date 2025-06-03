@@ -1,22 +1,25 @@
 """Command-line interface for fetching Opet fuel prices.
 
-This module provides a CLI tool powered by Click to interact with the OpetApiClient
-and display fuel price information for a specified province.
+This module provides a CLI tool powered by Click to interact with the
+OpetApiClient and display fuel price information for a specified province.
 """
 
 from opet.api import OpetApiClient
-from opet.exceptions import BaseError # Catching BaseError for application-specific errors
+from opet.exceptions import BaseError
 import click
-import sys # For exiting with error code
+import sys
+
 
 @click.command()
 @click.option(
     "--il",
-    "province_id", # Use a more descriptive variable name internally
+    "province_id",
     default="34",
-    show_default=True, # Makes default visible in --help
-    help="Yakıt fiyatlarını öğrenmek istediğiniz ilin plaka kodunu giriniz.",
-    metavar="PLAKA_KODU" # Adds context in help message
+    show_default=True,
+    help=(
+        "Yakıt fiyatlarını öğrenmek istediğiniz ilin plaka kodunu giriniz."
+    ),
+    metavar="PLAKA_KODU"
 )
 def cli(province_id: str) -> None:
     """Fetches and displays Opet fuel prices for the specified province ID.
@@ -33,12 +36,13 @@ def cli(province_id: str) -> None:
         client = OpetApiClient()
         price_json_output: str = client.price(province_id)
         click.echo(price_json_output)
-    except BaseError as e: # Catching specific application errors
+    except BaseError as e:
         click.echo(f"Error: {e}", err=True)
-        sys.exit(1) # Exit with a non-zero status code for application errors
-    except Exception as e: # Catch unexpected errors
+        sys.exit(1)
+    except Exception as e:
         click.echo(f"An unexpected error occurred: {e}", err=True)
-        sys.exit(1) # Exit with a non-zero status code for unexpected errors
+        sys.exit(1)
+
 
 if __name__ == '__main__':
     cli()

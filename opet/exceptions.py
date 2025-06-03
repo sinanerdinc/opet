@@ -1,9 +1,10 @@
 """Custom exception classes for the Opet API client application.
 
-This module defines specific exceptions that can be raised by the Opet API client
+This module defines specific exceptions that can be raised by the client
 and related utility functions. This allows for more granular error handling
 compared to using generic exceptions.
 """
+
 
 class BaseError(Exception):
     """Base class for all custom exceptions in this application.
