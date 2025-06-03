@@ -7,7 +7,7 @@ setup(
     name="opet",
     author="Sinan Erdinc",
     author_email="hello@sinanerdinc.com",
-    version="0.0.9",
+    version="0.1.0",
     install_requires=["requests", "click"],
     description="A Python package that allows you to view fuel prices in Turkey based on cities.",
     long_description=long_description,
