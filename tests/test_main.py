@@ -53,7 +53,7 @@ def test_cli_province_not_found(mock_opet_client):
     runner = CliRunner()
     result = runner.invoke(cli, ["--il", province_id])
 
-    assert result.exit_code == 0  # As per instruction, exception is caught in main.py
+    assert result.exit_code == 1  # As per instruction, exception is caught in main.py
     assert error_message in result.output
     # Assert that the 'price' method was called with the province_id as a positional argument
     mock_opet_client.price.assert_called_once_with(province_id)
@@ -70,7 +70,7 @@ def test_cli_general_exception(mock_opet_client):
     result = runner.invoke(cli, ["--il", province_id])
 
     # main.py catches Exception and prints it, then exits. Default exit code is 0.
-    assert result.exit_code == 0 
+    assert result.exit_code == 1 
     assert error_message in result.output # Check if the generic error message is printed
     # Assert that the 'price' method was called with the province_id as a positional argument
     mock_opet_client.price.assert_called_once_with(province_id)

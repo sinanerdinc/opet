@@ -7,7 +7,6 @@ and display fuel price information for a specified province.
 from opet.api import OpetApiClient
 from opet.exceptions import BaseError # Catching BaseError for application-specific errors
 import click
-import os # For API Key, though not used by current OpetApiClient
 import sys # For exiting with error code
 
 @click.command()
@@ -30,16 +29,7 @@ def cli(province_id: str) -> None:
         province_id: The plate code (plaka kodu) of the province for which
                      to fetch fuel prices.
     """
-    # Example of how an API key might be handled if needed in the future.
-    # Not currently used by OpetApiClient as per its latest implementation.
-    # api_key = os.environ.get("OPET_API_KEY")
-    # if not api_key:
-    #     click.echo("Error: OPET_API_KEY environment variable not set.", err=True)
-    #     sys.exit(1)
-
     try:
-        # Pass api_key to client if it were to accept it:
-        # client = OpetApiClient(api_key=api_key)
         client = OpetApiClient()
         price_json_output: str = client.price(province_id)
         click.echo(price_json_output)
