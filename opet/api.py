@@ -2,7 +2,8 @@
 
 from opet.utils import http_get, to_json
 from opet.exceptions import ProvinceNotFoundError
-from typing import List, Dict, Any, TypedDict, Optional
+from typing import List, Dict, Any, Optional
+from typing_extensions import TypedDict
 
 
 class FuelPrice(TypedDict):
