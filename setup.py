@@ -7,7 +7,7 @@ setup(
     name="opet",
     author="Sinan Erdinc",
     author_email="hello@sinanerdinc.com",
-    version="0.1.2",
+    version="0.1.3",
     install_requires=[
         "requests==2.32.1",
         "click==8.0.0",
