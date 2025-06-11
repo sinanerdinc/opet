@@ -10,7 +10,7 @@ setup(
     name="opet",
     author="Sinan Erdinc",
     author_email="hello@sinanerdinc.com",
-    version="0.1.1",
+    version="0.1.2",
     install_requires=requirements,
     description=(
         "A Python package that allows you to view fuel",
