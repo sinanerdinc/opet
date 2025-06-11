@@ -3,15 +3,19 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("requirements.txt") as f:
-    requirements = f.read().splitlines()
-
 setup(
     name="opet",
     author="Sinan Erdinc",
     author_email="hello@sinanerdinc.com",
     version="0.1.2",
-    install_requires=requirements,
+    install_requires=[
+        "requests==2.32.1",
+        "click==8.0.0",
+        "fastapi==0.109.2",
+        "uvicorn==0.27.1",
+        "pydantic==2.6.1",
+        "typing-extensions==4.9.0"
+    ],
     description=(
         "A Python package that allows you to view fuel",
         "prices in Turkey based on cities."),
