@@ -14,7 +14,7 @@ import sys
 @click.option(
     "--il",
     "province_id",
-    default="34",
+    default=None,
     show_default=True,
     help=(
         "Enter the plate code of the province for which you want to "
@@ -22,17 +22,23 @@ import sys
     ),
     metavar="PLATE_CODE"
 )
-def cli(province_id: str) -> None:
-    """Fetches and displays Opet fuel prices for the specified province ID.
-
-    This tool initializes an OpetApiClient and calls its price method
-    to retrieve and print fuel price data in JSON format.
-    Error messages are printed to stderr if issues occur.
-
-    Args:
-        province_id: The plate code (plaka kodu) of the province for which
-                     to fetch fuel prices.
-    """
+@click.option(
+    "--api",
+    is_flag=True,
+    help="Start the API server instead of running the CLI."
+)
+def cli(province_id: str, api: bool) -> None:
+    """Starts the API server."""
+    if api:
+        import uvicorn
+        uvicorn.run("opet.server.app:app", host="0.0.0.0", port=8000)
+        return
+    if province_id is None:
+        click.echo(
+            "use the --help command to see the available options",
+            err=True
+        )
+        sys.exit(1)
     try:
         client = OpetApiClient()
         price_json_output: str = client.price(province_id)

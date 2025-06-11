@@ -3,14 +3,22 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+
 setup(
     name="opet",
     author="Sinan Erdinc",
     author_email="hello@sinanerdinc.com",
     version="0.1.1",
-    install_requires=["requests", "click"],
-    description="A Python package that allows you to view fuel prices in Turkey based on cities.",
-    long_description=long_description,
+    install_requires=requirements,
+    description=(
+        "A Python package that allows you to view fuel",
+        "prices in Turkey based on cities."),
+    long_description=(
+        "A Python package that provides both CLI and API interfaces"
+        " to fetch current fuel prices from Opet's website."
+    ),
     long_description_content_type="text/markdown",
     url="https://github.com/sinanerdinc/opet",
     classifiers=[

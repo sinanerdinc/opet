@@ -3,6 +3,9 @@ LABEL maintainer="Sinan Erdinc <hello@sinanerdinc.com>"
 
 WORKDIR /app
 
+# Suppress all Python warnings
+ENV PYTHONWARNINGS=ignore
+
 # Copy entire project
 COPY . /app/
 
