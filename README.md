@@ -29,6 +29,12 @@ You can view fuel prices in JSON format by passing the plate code as a parameter
 opet-cli --il 34
 ```
 
+You can also start the API server directly using the CLI:
+```
+opet-cli --api
+```
+This will start the API server on port 8000, and you can access it at `http://localhost:8000`.
+
 ## Methods
 - **get_last_update**: Returns the last update time.
 - **get_provinces**: Returns the list of provinces and their codes.
