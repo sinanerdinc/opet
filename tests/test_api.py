@@ -118,7 +118,8 @@ def test_price_province_not_found(client_with_mock_http, mocker):
     mock_http_get.assert_called_with(f"{api_client.url}/provinces")
     province_id_not_in_default = "NON_EXISTENT_ID"
     expected_error_message = (
-        f"No province found with plate code {province_id_not_in_default} in the system."
+        f"No province found with plate code {province_id_not_in_default} "
+        "in the system."
     )
     initial_call_count_after_init = mock_http_get.call_count
     with pytest.raises(ProvinceNotFoundError, match=expected_error_message):
