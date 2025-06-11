@@ -1,8 +1,12 @@
 """Opet API'si için veri sağlayıcı."""
 
 from opet.api import OpetApiClient
-from opet.server.models.fuel import Province, FuelPrice, PriceResponse, LastUpdate
-from typing import List, Optional
+from opet.server.models.fuel import (
+    Province,
+    PriceResponse,
+    LastUpdate
+)
+from typing import List
 import json
 
 
@@ -31,4 +35,4 @@ class OpetProvider:
 
     def get_last_update(self) -> LastUpdate:
         """Son güncelleme zamanını döner."""
-        return LastUpdate(**self.client.get_last_update()) 
+        return LastUpdate(**self.client.get_last_update())

@@ -81,7 +81,8 @@ class OpetApiClient:
         province_name: Optional[str] = self._provinces_map.get(normalized_id)
         if province_name is None:
             raise ProvinceNotFoundError(
-                f"No province found with plate code {province_id} in the system."
+                f"No province found with plate code {province_id} "
+                "in the system."
             )
         last_update_info: LastUpdateInfo = self.get_last_update()
         fuel_prices: List[FuelPrice] = self.get_price(normalized_id)

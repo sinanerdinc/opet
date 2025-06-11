@@ -1,1 +1,1 @@
-"""Opet API Server modülü.""" 
+"""Opet API Server modülü."""

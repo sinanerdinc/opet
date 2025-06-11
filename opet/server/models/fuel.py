@@ -2,7 +2,6 @@
 
 from pydantic import BaseModel
 from typing import List, Optional
-from datetime import datetime
 
 
 class FuelPrice(BaseModel):
@@ -32,4 +31,4 @@ class FuelPriceRequest(BaseModel):
 
 class LastUpdate(BaseModel):
     """Son güncelleme modeli."""
-    lastUpdateDate: str 
+    lastUpdateDate: str

@@ -1,7 +1,11 @@
 """Yakıt fiyatları için kontrolcü."""
 
 from fastapi import APIRouter, HTTPException
-from opet.server.models.fuel import Province, PriceResponse, FuelPriceRequest, LastUpdate
+from opet.server.models.fuel import (
+    Province,
+    PriceResponse,
+    LastUpdate
+)
 from opet.server.providers.opet import OpetProvider
 from typing import List
 
@@ -47,4 +51,4 @@ class FuelController:
 
     async def get_last_update(self) -> LastUpdate:
         """Son güncelleme zamanını döner."""
-        return self.provider.get_last_update() 
+        return self.provider.get_last_update()

@@ -17,7 +17,8 @@ import sys
     default="34",
     show_default=True,
     help=(
-        "Enter the plate code of the province for which you want to learn fuel prices."
+        "Enter the plate code of the province for which you want to "
+        "learn fuel prices."
     ),
     metavar="PLATE_CODE"
 )
