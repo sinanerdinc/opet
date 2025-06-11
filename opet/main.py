@@ -17,9 +17,10 @@ import sys
     default="34",
     show_default=True,
     help=(
-        "Yakıt fiyatlarını öğrenmek istediğiniz ilin plaka kodunu giriniz."
+        "Enter the plate code of the province for which you want to "
+        "learn fuel prices."
     ),
-    metavar="PLAKA_KODU"
+    metavar="PLATE_CODE"
 )
 def cli(province_id: str) -> None:
     """Fetches and displays Opet fuel prices for the specified province ID.

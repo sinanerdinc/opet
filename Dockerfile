@@ -1,8 +1,21 @@
-FROM python:3.13-rc-alpine
+FROM python:3.12-alpine
 LABEL maintainer="Sinan Erdinc <hello@sinanerdinc.com>"
 
 WORKDIR /app
 
-RUN pip install opet
+# Copy entire project
+COPY . /app/
 
-ENTRYPOINT ["opet-cli"]
+# Install uv and create virtual environment
+RUN pip install uv
+RUN uv venv
+
+# Install dependencies and package
+RUN uv pip install --system -r requirements.txt
+RUN pip install .
+
+# Make entrypoint script executable
+RUN chmod +x /app/docker-entrypoint.sh
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
+CMD ["cli"]

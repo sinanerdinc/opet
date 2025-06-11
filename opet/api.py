@@ -1,44 +1,45 @@
-"""OpetApiClient ile Opet Akaryakıt Fiyatları API'sine erişim sağlar."""
+"""Provides access to Opet Fuel Prices API through OpetApiClient."""
 
 from opet.utils import http_get, to_json
 from opet.exceptions import ProvinceNotFoundError
-from typing import List, Dict, Any, TypedDict, Optional
+from typing import List, Dict, Any, Optional
+from typing_extensions import TypedDict
 
 
 class FuelPrice(TypedDict):
-    """Bir yakıt fiyatı kaydı."""
+    """A fuel price record."""
     name: str
     amount: float
 
 
 class Province(TypedDict):
-    """Bir il kaydı."""
+    """A province record."""
     code: str
     name: str
 
 
 class LastUpdateInfo(TypedDict):
-    """Son güncelleme bilgisi."""
+    """Last update information."""
     lastUpdateDate: str
 
 
 class FormattedPriceResult(TypedDict):
-    """Fiyat sonucu yapısı."""
+    """Price result structure."""
     province: str
     lastUpdate: str
     prices: List[FuelPrice]
 
 
 class PriceResponse(TypedDict):
-    """JSON dönen ana yapı."""
+    """Main JSON response structure."""
     results: FormattedPriceResult
 
 
 class OpetApiClient:
-    """Opet Akaryakıt Fiyatları API istemcisi."""
+    """Opet Fuel Prices API client."""
 
     def __init__(self) -> None:
-        """İl listesini yükler."""
+        """Loads the list of provinces."""
         self.url: str = "https://api.opet.com.tr/api/fuelprices"
         self._provinces_list: List[Province] = self.get_provinces()
         self._provinces_map: Dict[str, str] = {
@@ -46,15 +47,15 @@ class OpetApiClient:
         }
 
     def get_last_update(self) -> LastUpdateInfo:
-        """Son güncelleme zamanını döner."""
+        """Returns the last update time."""
         return http_get(f"{self.url}/lastupdate")
 
     def get_provinces(self) -> List[Province]:
-        """Tüm illeri döner."""
+        """Returns all provinces."""
         return http_get(f"{self.url}/provinces")
 
     def get_price(self, province_id: str) -> List[FuelPrice]:
-        """Bir il için yakıt fiyatlarını döner."""
+        """Returns fuel prices for a province."""
         url: str = (
             f"{self.url}/prices?ProvinceCode={province_id}"
             "&IncludeAllProducts=true"
@@ -68,17 +69,23 @@ class OpetApiClient:
         ]
         return response
 
+    def _normalize_plate_code(self, plate_code: str) -> str:
+        """Normalizes plate code by removing leading zeros if numeric."""
+        if plate_code.isdigit():
+            return str(int(plate_code))
+        return plate_code
+
     def price(self, province_id: str) -> str:
-        """Bir il için fiyatları JSON olarak döner."""
-        province_name: Optional[str] = self._provinces_map.get(
-            str(province_id)
-            )
+        """Returns prices as JSON for a province."""
+        normalized_id = self._normalize_plate_code(province_id)
+        province_name: Optional[str] = self._provinces_map.get(normalized_id)
         if province_name is None:
             raise ProvinceNotFoundError(
-                f"Sistemde {province_id} plaka koduna ait bir il bulunamadı."
+                f"No province found with plate code {province_id} "
+                "in the system."
             )
         last_update_info: LastUpdateInfo = self.get_last_update()
-        fuel_prices: List[FuelPrice] = self.get_price(province_id)
+        fuel_prices: List[FuelPrice] = self.get_price(normalized_id)
         result: PriceResponse = {
             "results": {
                 "province": province_name,
