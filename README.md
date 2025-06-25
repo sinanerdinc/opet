@@ -4,6 +4,9 @@
 ## Opet
 This project allows you to fetch current fuel prices from https://www.opet.com.tr/.
 
+## Mcp Server
+The project also has an mcp server, you can access it from https://github.com/sinanerdinc/opet-mcp
+
 ## Installation
 You can install the package using the following command:
 ```
