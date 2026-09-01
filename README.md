@@ -76,3 +76,10 @@ You can also map the container's port 8000 to a different port on your host mach
 docker run -p 5050:8000 opet api
 ```
 In this case, the API server still runs on port 8000 inside the container, but you can access it at `http://localhost:5050` on your host machine.
+
+### Contributors
+
+<a href="https://github.com/sinanerdinc/opet/graphs/contributors">
+  <img alt="Dify contributors" src="https://contrib.rocks/image?repo=sinanerdinc/opet" />
+</a>
+
